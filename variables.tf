@@ -22,7 +22,7 @@ variable "machine_type" {
     default = "f1-micro"   
 }
 variable "disk_size" {
-    default = 5
+    default = 10
 }
 variable "node_ip_part" {
     default = "10.156.10"
