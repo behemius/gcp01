@@ -17,7 +17,7 @@ resource "google_compute_instance" "mysql_node" {
     boot_disk {
         initialize_params {
             image = "centos-8"
-            size = "10"
+            size = "${var.disk_size}"
             type = "pd-standard"
         }
     }
@@ -25,7 +25,31 @@ resource "google_compute_instance" "mysql_node" {
     network_interface {
         network = "default"
         access_config {
-          // Ephemeral IP
+          nat_ip = "${var.node_ip_part}.${count.index + 1}"
+        }
+    }
+}
+
+resource "google_compute_instance" "mysql_router" {
+    name = "mysql_router"
+    machine_type = "${var.machine_type}"
+     
+    scheduling {
+        automatic_restart   = true
+    }
+    
+    boot_disk {
+        initialize_params {
+            image = "centos-8"
+            size = "${var.disk_size}"
+            type = "pd-standard"
+        }
+    }
+
+    network_interface {
+        network = "default"
+        access_config {
+          nat_ip = "${var.router_ip}"
         }
     }
 }
