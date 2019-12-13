@@ -4,7 +4,7 @@ provider "google" {
     zone = "${var.gcp_zone}"
 }
 
-resource "google_compute_instance" "vm_instance" {
+resource "google_compute_instance" "mysql_node" {
     count = "${var.count_instances}"
 
     name = "${var.instance_name}${count.index + 1}"
@@ -16,7 +16,7 @@ resource "google_compute_instance" "vm_instance" {
     
     boot_disk {
         initialize_params {
-            image = "debian-cloud/debian-9"
+            image = "centos-8"
             size = "10"
             type = "pd-standard"
         }
