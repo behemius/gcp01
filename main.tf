@@ -7,7 +7,7 @@ provider "google" {
 resource "google_compute_instance" "vm_instance" {
     count = "${var.count_instances}"
 
-    name = "${var.instance_name}${count.index}"
+    name = "${var.instance_name}${count.index + 1}"
     machine_type = "${var.machine_type}"
      
     scheduling {
