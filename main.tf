@@ -25,6 +25,9 @@ resource "google_compute_instance" "mysql_node" {
     network_interface {
         network = "default"
         network_ip = "${var.node_ip_part}.${count.index + 1}"
+        access_config {
+          // Ephemeral IP
+        }
     }
     tags = ["mysql-cluster"]
 }
@@ -48,6 +51,9 @@ resource "google_compute_instance" "mysql_router" {
     network_interface {
         network = "default"
         network_ip = "${var.router_ip}"
+        access_config {
+          // Ephemeral IP
+        }
     }
     tags = ["mysql-cluster"]
 }
@@ -62,7 +68,7 @@ resource "google_compute_firewall" "mysql_cluster" {
   allow {
       protocol = "udp"
   }
-  
+
   source_ranges = ["0.0.0.0/0"]
   target_tags   = ["mysql-cluster"]
 }
