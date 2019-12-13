@@ -24,9 +24,7 @@ resource "google_compute_instance" "mysql_node" {
 
     network_interface {
         network = "default"
-        access_config {
-          nat_ip = "${var.node_ip_part}.${count.index + 1}"
-        }
+        network_ip = "${var.node_ip_part}.${count.index + 1}"
     }
 }
 
@@ -48,8 +46,6 @@ resource "google_compute_instance" "mysql_router" {
 
     network_interface {
         network = "default"
-        access_config {
-          nat_ip = "${var.router_ip}"
-        }
+        network_ip = "${var.router_ip}"
     }
 }
