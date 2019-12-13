@@ -26,6 +26,7 @@ resource "google_compute_instance" "mysql_node" {
         network = "default"
         network_ip = "${var.node_ip_part}.${count.index + 1}"
     }
+    tags = ["mysql-cluster"]
 }
 
 resource "google_compute_instance" "mysql_router" {
@@ -48,4 +49,20 @@ resource "google_compute_instance" "mysql_router" {
         network = "default"
         network_ip = "${var.router_ip}"
     }
+    tags = ["mysql-cluster"]
+}
+
+resource "google_compute_firewall" "mysql_cluster" {
+  name    = "mysql-cluster"
+  network = "default"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["all"]
+  }
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["mysql-cluster"]
+}
+output "ip" {
+  value = "${google_compute_instance.default.network_interface.0.access_config.0.nat_ip}"
 }
