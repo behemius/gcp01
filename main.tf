@@ -64,5 +64,8 @@ resource "google_compute_firewall" "mysql_cluster" {
   target_tags   = ["mysql-cluster"]
 }
 output "ip" {
-  value = "${google_compute_instance.default.network_interface.0.access_config.0.nat_ip}"
+  value = "${google_compute_instance.mysql_router.network_interface.0.access_config.0.nat_ip}"
+}
+output "ip" {
+  value = "${google_compute_instance.mysql_node.network_interface.0.access_config.0.nat_ip}"
 }
