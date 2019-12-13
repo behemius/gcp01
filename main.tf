@@ -58,8 +58,11 @@ resource "google_compute_firewall" "mysql_cluster" {
 
   allow {
     protocol = "tcp"
-    ports    = ["all"]
   }
+  allow {
+      protocol = "udp"
+  }
+  
   source_ranges = ["0.0.0.0/0"]
   target_tags   = ["mysql-cluster"]
 }
