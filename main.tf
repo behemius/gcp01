@@ -29,7 +29,7 @@ resource "google_compute_instance" "mysql_node" {
 }
 
 resource "google_compute_instance" "mysql_router" {
-    name = "mysql_router"
+    name = "mysql-router"
     machine_type = "${var.machine_type}"
      
     scheduling {
