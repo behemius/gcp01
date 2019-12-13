@@ -7,7 +7,7 @@ variable "gcp_region" {
     default = "europe-west3"
 }
 variable "gcp_zone" {
-    default = "europe-west3-c"
+    default = "europe-west3-a"
 }
 
 # Resources parameters
