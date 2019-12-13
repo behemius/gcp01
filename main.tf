@@ -5,11 +5,11 @@ provider "google" {
 }
 
 resource "google_compute_instance" "vm_instance" {
-    name = "${var.instance_name}${var.count_instances}"
-    machine_type = "${var.machine_type}"
-
     count = "${var.count_instances}"
-    
+
+    name = "${var.instance_name}${count.index}"
+    machine_type = "${var.machine_type}"
+     
     scheduling {
         automatic_restart   = true
     }
