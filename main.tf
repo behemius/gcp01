@@ -4,10 +4,8 @@ provider "google" {
     zone = "${var.gcp_zone}"
 }
 
-resource "google_compute_instance" "mysql_node" {
-    count = "${var.count_instances}"
-
-    name = "${var.instance_name}${count.index + 1}"
+resource "google_compute_instance" "mysql_node1" {
+    name = "${var.instance_name}1"
     machine_type = "${var.machine_type}"
      
     scheduling {
@@ -24,7 +22,35 @@ resource "google_compute_instance" "mysql_node" {
 
     network_interface {
         network = "default"
-        network_ip = "${var.node_ip_part}.${count.index + 1}"
+        network_ip = "${var.node_ip_part}.1"
+        access_config {
+          // Ephemeral IP
+        }
+    }
+    tags = ["mysql-cluster"]
+}
+
+resource "google_compute_instance" "mysql_node" {
+    count = "${var.count_instances - 1}"
+
+    name = "${var.instance_name}${count.index + 2}"
+    machine_type = "${var.machine_type}"
+     
+    scheduling {
+        automatic_restart   = true
+    }
+    
+    boot_disk {
+        initialize_params {
+            image = "centos-8"
+            size = "${var.disk_size}"
+            type = "pd-standard"
+        }
+    }
+
+    network_interface {
+        network = "default"
+        network_ip = "${var.node_ip_part}.${count.index + 2}"
         access_config {
           // Ephemeral IP
         }

@@ -17,3 +17,13 @@ Requirements:
 Future:
 -------
 1. Project may be extended for using containers for MySQL 8.0
+
+
+Additional notes:
+-----------------
+In case you need change temporary MySQL password after installation, I found nice bash example:
+
+password=$(grep -oP 'temporary password(.*): \K(\S+)' /var/log/mysqld.log)
+mysqladmin --user=root --password="$password" password aaBB@@cc1122
+mysql --user=root --password=aaBB@@cc1122 -e "UNINSTALL COMPONENT 'file://component_validate_password';"
+mysqladmin --user=root --password="aaBB@@cc1122" password ""
