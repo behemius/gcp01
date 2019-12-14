@@ -103,15 +103,15 @@ resource "google_compute_firewall" "mysql_cluster" {
 }
 
 data "template_file" "node1_install" {
-  template = "${file("node1_install")}"
+  template = "${file("node1_install.sh")}"
   vars = {
     nodes = "${var.count_instances}"
   }
 }
 data "template_file" "node_install" {
-  template = "${file("node_install")}"
+  template = "${file("node_install.sh")}"
 }
 
 data "template_file" "router_install" {
-  template = "${file("router_install")}"
+  template = "${file("router_install.sh")}"
 }
