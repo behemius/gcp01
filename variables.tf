@@ -19,7 +19,7 @@ variable "instance_name" {
     default = "mysql0"
 }
 variable "machine_type" {
-    default = "f1-micro"   
+    default = "g1-small"   
 }
 variable "disk_size" {
     default = 10
