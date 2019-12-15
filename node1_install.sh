@@ -17,7 +17,7 @@ yum install -y mysql-server mysql-shell
 systemctl start mysqld
 
 # cluster configuration
-mysql -e "create user 'mycluster' identified by $password"
+mysql -e "create user 'mycluster' identified by '$password'"
 mysql -e "grant all privileges on *.* to 'mycluster'@'%' with grant option"
 mysql -e "reset master"
 
