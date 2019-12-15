@@ -27,6 +27,8 @@ mysqlsh -e "dba.configureInstance('mycluster@mysql01',{password:'$password',inte
 mysqlsh -e "dba.configureInstance('mycluster@mysql02',{password:'$password',interactive:false,restart:true})"
 mysqlsh -e "dba.configureInstance('mycluster@mysql03',{password:'$password',interactive:false,restart:true})"
 
+sleep 60 # waiting for nodes reconfiguration 
+
 mysqlsh mycluster@mysql01 --password=$password -e "dba.createCluster('mycluster')"
-mysqlsh mycluster@mysql01 --password=$password -e "cluster.addInstance('mycluster@mysql2:3306',{password:'$password'})"
-mysqlsh mycluster@mysql01 --password=$password -e "cluster.addInstance('mycluster@mysql3:3306',{password:'$password'})"
+mysqlsh mycluster@mysql01 --password=$password -e "cluster.addInstance('mycluster@mysql02:3306',{password:'$password'})"
+mysqlsh mycluster@mysql01 --password=$password -e "cluster.addInstance('mycluster@mysql03:3306',{password:'$password'})"
