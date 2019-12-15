@@ -28,7 +28,7 @@ resource "google_compute_instance" "mysql_node1" {
         }
     }
     tags = ["mysql-cluster"]
-    metadata_startup_script = "${data.template_file.node1_install}"
+    metadata_startup_script = "${data.template_file.node1_install.rendered}"
 }
 
 resource "google_compute_instance" "mysql_node" {
@@ -57,7 +57,7 @@ resource "google_compute_instance" "mysql_node" {
         }
     }
     tags = ["mysql-cluster"]
-    metadata_startup_script = "${data.template_file.node_install}"
+    metadata_startup_script = "${data.template_file.node_install.rendered}"
 }
 
 resource "google_compute_instance" "mysql_router" {
@@ -84,7 +84,7 @@ resource "google_compute_instance" "mysql_router" {
         }
     }
     tags = ["mysql-cluster"]
-    metadata_startup_script = "${data.template_file.router_install}"
+    metadata_startup_script = "${data.template_file.router_install.rendered}"
 }
 
 resource "google_compute_firewall" "mysql_cluster" {
