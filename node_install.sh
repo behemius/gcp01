@@ -15,6 +15,7 @@ yum localinstall -y mysql80-community-release-el8-1.noarch.rpm
 yum update -y
 yum install -y mysql-server mysql-shell
 echo "bind-address=0.0.0.0" >> /etc/my.cnf.d/mysql-server.cnf
+echo "mysqlx_bind_address=0.0.0.0" >> /etc/my.cnf.d/mysql-server.cnf
 systemctl start mysqld
 
 # cluster configuration
