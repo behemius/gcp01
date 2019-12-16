@@ -33,5 +33,5 @@ mysqlsh mycluster@mysql01 --password=$password -e "dba.createCluster('mycluster'
 
 sleep 60 # creation of cluster
 
-mysqlsh mycluster@mysql01 --password=$password -e "var cluster = dba.getCluster();cluster.addInstance('mycluster@mysql02:3306',{password:'$password',interactive:false,recoveryMethod:'clone'});"
-mysqlsh mycluster@mysql01 --password=$password -e "var cluster = dba.getCluster();cluster.addInstance('mycluster@mysql03:3306',{password:'$password',interactive:false,recoveryMethod:'clone'});"
+mysqlsh mycluster@mysql01 --password=$password -e "var cluster = dba.getCluster();cluster.addInstance('mycluster@mysql02:3306',{password:'$password',ipWhitelist: '10.156.0.0/16',interactive:false,recoveryMethod:'clone'});"
+mysqlsh mycluster@mysql01 --password=$password -e "var cluster = dba.getCluster();cluster.addInstance('mycluster@mysql03:3306',{password:'$password',ipWhitelist: '10.156.0.0/16',interactive:false,recoveryMethod:'clone'});"
