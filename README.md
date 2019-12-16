@@ -32,8 +32,7 @@ Useful commands:
 ----------------
 
 MySQL Shell:
-
-var cluster = dba.getCluster()
-cluster.status()
-dba.dropMetadataSchema()
-cluster.dissolve({force:true})
+var cluster = dba.getCluster();
+cluster.status();
+dba.dropMetadataSchema();
+cluster.dissolve({force:true});
