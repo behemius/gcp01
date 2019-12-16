@@ -22,4 +22,5 @@ systemctl start mysqld
 # cluster configuration
 mysql -e "create user 'mycluster' identified by '$password'"
 mysql -e "grant all privileges on *.* to 'mycluster'@'%' with grant option"
+mysql -e "set global group_replication_ip_whitelist = '10.156.0.0/16'"
 mysql -e "reset master"
