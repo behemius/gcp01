@@ -8,6 +8,7 @@ sudo su -
 
 sed -i "s/SELINUX=enforcing/SELINUX=permissive/" /etc/sysconfig/selinux 
 setenforce 0 # I had problems on creation of cluster level because of SELinux
+sysctl -w net.ipv6.conf.all.disable_ipv6=1 # for mysql replication test
 
 yum install -y wget
 wget https://dev.mysql.com/get/mysql80-community-release-el8-1.noarch.rpm
