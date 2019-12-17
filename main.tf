@@ -116,6 +116,3 @@ data "template_file" "router_install" {
   template = "${file("router_install.sh")}"
 }
 
-output "public_ip" {
-  value = "${google_compute_address.vm_static_ip.address}"
-}
