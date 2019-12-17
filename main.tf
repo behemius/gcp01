@@ -115,3 +115,7 @@ data "template_file" "node_install" {
 data "template_file" "router_install" {
   template = "${file("router_install.sh")}"
 }
+
+output "MySQL Public IP" {
+  value = "${google_compute_address.vm_static_ip.address}"
+}
