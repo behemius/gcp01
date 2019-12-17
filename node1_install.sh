@@ -20,10 +20,11 @@ systemctl start mysqld
 mysql -e "create user 'mycluster' identified by '$password'"
 mysql -e "grant all privileges on *.* to 'mycluster'@'%' with grant option"
 mysql -e "reset master"
+mysqlsh -e "dba.configureInstance('mycluster@mysql01',{password:'$password',interactive:false,restart:true})"
 
-sleep 30 # waiting for all instances
+sleep 30 # waiting for first instance
 
-for i in $(seq 1 $nodes)
+for i in $(seq 2 ${nodes})
     do 
         mysqlsh -e "dba.configureInstance('mycluster@mysql0$i',{password:'$password',interactive:false,restart:true})"
     done
@@ -34,7 +35,7 @@ mysqlsh mycluster@mysql01 --password=$password -e "dba.createCluster('mycluster'
 
 sleep 30 # creation of cluster
 
-for i in $(seq 2 $nodes)
+for i in $(seq 2 ${nodes})
     do
         mysqlsh mycluster@mysql01 --password=$password -e "var cluster = dba.getCluster();cluster.addInstance('mycluster@mysql0$i:3306',{password:'$password',ipWhitelist: '10.156.0.0/16',interactive:false,recoveryMethod:'clone'});"
     done
