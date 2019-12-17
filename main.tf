@@ -115,3 +115,4 @@ data "template_file" "node_install" {
 data "template_file" "router_install" {
   template = "${file("router_install.sh")}"
 }
+
