@@ -6,6 +6,7 @@ I will use the smallest possible machines and MySQL community version.
 It's just for self development and training purposes. 
 
 As result you may connect to InnoDB cluster using public IP of MySQL router and port 3306 (R/W access) or 3307 (R/O access)
+
  
 Requirements:
 -------------
@@ -24,6 +25,7 @@ Future improvements:
 4. Putting passwords into terraform vault
 5. Support more nodes than 9 
 6. More clean terraform code
+7. Logging and tracing errors
 
 
 Additional notes:

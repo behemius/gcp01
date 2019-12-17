@@ -22,18 +22,18 @@ mysql -e "grant all privileges on *.* to 'mycluster'@'%' with grant option"
 mysql -e "reset master"
 mysqlsh -e "dba.configureInstance('mycluster@mysql01',{password:'$password',interactive:false,restart:true})"
 
-sleep 30 # waiting for first instance
+sleep 15 # waiting for first instance
 
 for i in $(seq 2 ${nodes})
     do 
         mysqlsh -e "dba.configureInstance('mycluster@mysql0$i',{password:'$password',interactive:false,restart:true})"
     done
 
-sleep 30 # waiting as all nodes will be ready 
+sleep 15 # waiting as all nodes will be ready 
 
 mysqlsh mycluster@mysql01 --password=$password -e "dba.createCluster('mycluster',{ipWhitelist: '10.156.0.0/16'})"
 
-sleep 30 # creation of cluster
+sleep 15 # creation of cluster
 
 for i in $(seq 2 ${nodes})
     do
