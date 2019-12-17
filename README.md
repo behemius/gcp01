@@ -7,7 +7,9 @@ It's just for self development and training purposes.
 
 As result you may connect to InnoDB cluster using public IP of MySQL router and port 3306 (R/W access) or 3307 (R/O access)
 
- 
+By default there are 3 instances created (1 master and 2 slaves). 
+There is possibility to create up to 9 instances by running: terraform apply -var 'count_instances=...' (for example count_instances=9)
+
 Requirements:
 -------------
 - Cloud - Google Cloud Platform
@@ -33,8 +35,11 @@ Additional notes:
 In case you need change temporary MySQL password after installation, I found nice bash example:
 
 password=$(grep -oP 'temporary password(.*): \K(\S+)' /var/log/mysqld.log)
+
 mysqladmin --user=root --password="$password" password aaBB@@cc1122
+
 mysql --user=root --password=aaBB@@cc1122 -e "UNINSTALL COMPONENT 'file://component_validate_password';"
+
 mysqladmin --user=root --password="aaBB@@cc1122" password ""
 
 Useful commands:
@@ -43,11 +48,17 @@ Useful commands:
 mysqlsh mycluster@mysql01
 
 MySQL Shell:
+
 var cluster = dba.getCluster();
+
 cluster.status();
+
 dba.dropMetadataSchema();
+
 cluster.dissolve({force:true});
 
 MySQL SQL:
+
 select @@port
+
 select @@hostname
