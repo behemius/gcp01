@@ -23,15 +23,18 @@ mysql -e "reset master"
 
 sleep 30 # waiting for all instances
 
-mysqlsh -e "dba.configureInstance('mycluster@mysql01',{password:'$password',interactive:false,restart:true})"
-mysqlsh -e "dba.configureInstance('mycluster@mysql02',{password:'$password',interactive:false,restart:true})"
-mysqlsh -e "dba.configureInstance('mycluster@mysql03',{password:'$password',interactive:false,restart:true})"
-
+for i in $nodes 
+    do 
+mysqlsh -e "dba.configureInstance('mycluster@mysql0$i',{password:'$password',interactive:false,restart:true})"
+    done
+    
 sleep 30 # waiting as all nodes will be ready 
 
 mysqlsh mycluster@mysql01 --password=$password -e "dba.createCluster('mycluster',{ipWhitelist: '10.156.0.0/16'})"
 
 sleep 30 # creation of cluster
 
-mysqlsh mycluster@mysql01 --password=$password -e "var cluster = dba.getCluster();cluster.addInstance('mycluster@mysql02:3306',{password:'$password',ipWhitelist: '10.156.0.0/16',interactive:false,recoveryMethod:'clone'});"
-mysqlsh mycluster@mysql01 --password=$password -e "var cluster = dba.getCluster();cluster.addInstance('mycluster@mysql03:3306',{password:'$password',ipWhitelist: '10.156.0.0/16',interactive:false,recoveryMethod:'clone'});"
+for i in $(seq 2 $nodes)
+    do
+        mysqlsh mycluster@mysql01 --password=$password -e "var cluster = dba.getCluster();cluster.addInstance('mycluster@mysql0$i:3306',{password:'$password',ipWhitelist: '10.156.0.0/16',interactive:false,recoveryMethod:'clone'});"
+    done
