@@ -23,11 +23,11 @@ mysql -e "reset master"
 
 sleep 30 # waiting for all instances
 
-for i in $nodes 
+for i in $(seq 1 $nodes)
     do 
-mysqlsh -e "dba.configureInstance('mycluster@mysql0$i',{password:'$password',interactive:false,restart:true})"
+        mysqlsh -e "dba.configureInstance('mycluster@mysql0$i',{password:'$password',interactive:false,restart:true})"
     done
-    
+
 sleep 30 # waiting as all nodes will be ready 
 
 mysqlsh mycluster@mysql01 --password=$password -e "dba.createCluster('mycluster',{ipWhitelist: '10.156.0.0/16'})"
