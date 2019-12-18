@@ -28,6 +28,7 @@ Future improvements:
 5. Support more nodes than 9 
 6. More clean terraform code
 7. Logging and tracing errors
+8. Output with public IP of MySQL router at the end of terraform deployment
 
 
 Additional notes:
@@ -49,16 +50,12 @@ mysqlsh mycluster@mysql01
 
 MySQL Shell:
 
-var cluster = dba.getCluster();
-
-cluster.status();
-
-dba.dropMetadataSchema();
-
-cluster.dissolve({force:true});
+var cluster = dba.getCluster();  
+cluster.status();  
+dba.dropMetadataSchema();  
+cluster.dissolve({force:true});  
 
 MySQL SQL:
 
-select @@port
-
-select @@hostname
+select @@port  
+select @@hostname  
