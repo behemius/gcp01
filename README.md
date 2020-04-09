@@ -29,6 +29,7 @@ Future improvements:
 6. More clean terraform code
 7. Logging and tracing errors
 8. Output with public IP of MySQL router at the end of terraform deployment
+9. 
 
 
 Additional notes:
